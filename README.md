@@ -49,10 +49,10 @@ After cleaning, each row represents one recipe, allowing recipe features such as
 
 ### Univariate Analysis
 
-#### Distribution of Number of Recipe Steps
+#### Distribution of Number of Ingredients
 
 <iframe
-  src="./assets/n_ingredients_distribution.html"
+  src="{{ site.baseurl }}/assets/n_ingredients_distribution.html"
   width="100%"
   height="500"
   frameborder="0">
