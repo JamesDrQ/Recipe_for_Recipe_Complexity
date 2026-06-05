@@ -61,12 +61,12 @@ This box plot shows the distribution of `avg_rating` across different ingredient
 
 ### Interesting Aggregates
 
-| ingredient_group / step_group |   1-5   |  6-10   |  11-20  |   21+   |
-|:------------------------------|--------:|--------:|--------:|--------:|
-| 1-5                           | 4.66479 | 4.63466 | 4.62094 | 4.6594  |
-| 6-10                          | 4.62164 | 4.61032 | 4.61711 | 4.6623  |
-| 11-15                         | 4.61855 | 4.61532 | 4.62361 | 4.65194 |
-| 16+                           | 4.70382 | 4.63493 | 4.65392 | 4.62091 |
+| Ingredient / Step |   1-5   |  6-10   |  11-20  |   21+   |
+|:------------------|--------:|--------:|--------:|--------:|
+| 1-5               | 4.66479 | 4.63466 | 4.62094 | 4.6594  |
+| 6-10              | 4.62164 | 4.61032 | 4.61711 | 4.6623  |
+| 11-15             | 4.61855 | 4.61532 | 4.62361 | 4.65194 |
+| 16+               | 4.70382 | 4.63493 | 4.65392 | 4.62091 |
 
 This pivot table shows the mean `avg_rating` for recipes grouped by both number of ingredients and number of steps. The average ratings are very similar across most combinations, mostly ranging from about 4.61 to 4.70. This suggests that even when considering both forms of recipe complexity together, recipes with more ingredients or more steps do not clearly receive higher or lower ratings. Overall, the table supports the earlier box plots: recipe complexity does not appear to have a strong association with average rating.
 
@@ -78,7 +78,9 @@ I believe that the missingness of `description` may be **NMAR**. Whether a recip
 
 Useful information could include whether the description field was optional, each contributor's past tendency to provide descriptions, and whether contributors were prompted to complete the field. By using these additional data we might explain the missingness and potentially make it MAR.
 
-Missingness analysis goes here.
+### Missingness Dependency
+
+
 
 ## Hypothesis Testing
 
