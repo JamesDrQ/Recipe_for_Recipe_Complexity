@@ -130,7 +130,7 @@ The prediction problem is to predict the number of steps required to prepare a r
 
 At the time of prediction, the model would know information available from the recipe’s basic description and metadata, including its preparation time, number of ingredients, name, description, and tags. The model would not use the actual written steps or any features directly derived from `n_steps`, since that information would reveal the response variable.
 
-I use **root mean squared error (RMSE)** as the primary evaluation metric. RMSE measures the typical prediction error in the same unit as the response variable: number of steps. It also penalizes large errors more heavily than mean absolute error, which is useful because substantially underestimating or overestimating the number of steps would make the prediction less useful. Unlike (R^2), RMSE directly communicates approximately how many steps the model’s predictions differ from the actual values.
+I use **root mean squared error (RMSE)** as the primary evaluation metric. RMSE measures the typical prediction error in the same unit as the response variable: number of steps. It also penalizes large errors more heavily than mean absolute error, which is useful because substantially underestimating or overestimating the number of steps would make the prediction less useful. Unlike R², RMSE directly communicates approximately how many steps the model’s predictions differ from the actual values.
 
 
 ## Baseline Model
