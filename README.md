@@ -124,11 +124,33 @@ Because the p-value is **above** the significance level of 0.05, I **fail to rej
 
 ## Framing a Prediction Problem
 
-Prediction problem content goes here.
+Originally, I considered predicting a recipe’s average user rating. However, the distribution of `avg_rating` is highly skewed, with many recipes receiving ratings close to or equal to 5. As a result, a model could appear successful by predicting high ratings for nearly every recipe without learning meaningful relationships. Therefore, I chose to predict a more interpretable measure of recipe complexity.
+
+The prediction problem is to predict the number of steps required to prepare a recipe. This is a **regression problem** because the response variable, `n_steps`, is numerical. Predicting `n_steps` is meaningful because the number of instructions is one measure of how complicated a recipe may be to follow. For example, two recipes may require similar preparation times and numbers of ingredients, but the recipe with more steps may require more effort from the cook.
+
+At the time of prediction, the model would know information available from the recipe’s basic description and metadata, including its preparation time, number of ingredients, name, description, and tags. The model would not use the actual written steps or any features directly derived from `n_steps`, since that information would reveal the response variable.
+
+I use **root mean squared error (RMSE)** as the primary evaluation metric. RMSE measures the typical prediction error in the same unit as the response variable: number of steps. It also penalizes large errors more heavily than mean absolute error, which is useful because substantially underestimating or overestimating the number of steps would make the prediction less useful. Unlike (R^2), RMSE directly communicates approximately how many steps the model’s predictions differ from the actual values.
+
 
 ## Baseline Model
 
-Baseline model content goes here.
+For the baseline model, I used a **Linear Regression** model to predict `n_steps` using two features: `minutes` and `n_ingredients`. Both are quantitative features. These features were selected because recipes that require more time or use more ingredients may also require more instructions.
+
+The `minutes` column is highly right-skewed and contains several extreme values, so I applied a logarithmic transformation using `log1p`. This reduces the influence of unusually large preparation times while keeping all recipes in the dataset. I left `n_ingredients` unchanged because it has a much smaller range and is less affected by extreme values.
+
+The model was implemented using a single sklearn `Pipeline`. A `ColumnTransformer` first applied the log transformation to `minutes` and passed through `n_ingredients` without modification. The transformed features were then used to fit a Linear Regression model. Because both features are already quantitative, no categorical encoding was necessary.
+
+This baseline model uses:
+
+* **2 quantitative features:** `minutes` and `n_ingredients`
+* **0 ordinal features**
+* **0 nominal features**
+
+On the held-out test set, the baseline model achieved an **RMSE of 5.56 steps** and an **R² score of 0.24**. The RMSE indicates that the model’s predictions differ from the actual number of steps by approximately 5.56 steps on average. The R² score indicates that the model explains about 24% of the variation in `n_steps`.
+
+I do not consider this model especially strong because much of the variation in the number of steps remains unexplained, and an error of approximately 5.56 steps can be substantial for shorter recipes. However, it provides a reasonable and interpretable reference point for evaluating whether the final model improves prediction performance.
+
 
 ## Final Model
 
