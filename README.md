@@ -49,8 +49,6 @@ After cleaning, each row represents one recipe, allowing recipe features such as
 
 ### Univariate Analysis
 
-#### Distribution of Number of Ingredients
-
 <iframe src="{{ site.baseurl }}/assets/n_ingredients_distribution.html" width="100%" height="400" frameborder="0"></iframe>
 
 The distribution of the number of ingredients is unimodal and right-skewed. The center of the distribution appears to be around 8 ingredients. This suggests that most recipes use a moderate number of ingredients, and recipes with ingredient counts of more than 25 are relatively uncommon.
@@ -63,7 +61,8 @@ This box plot shows the distribution of `avg_rating` across different ingredient
 
 ### Interesting Aggregates
 
-| ingredient_group   |     1-5 |    6-10 |   11-20 |     21+ |
+| step_group         |     1-5 |    6-10 |   11-20 |     21+ |
+| ingredient_group   |         |         |         |         |
 |:-------------------|--------:|--------:|--------:|--------:|
 | 1-5                | 4.66479 | 4.63466 | 4.62094 | 4.6594  |
 | 6-10               | 4.62164 | 4.61032 | 4.61711 | 4.6623  |
