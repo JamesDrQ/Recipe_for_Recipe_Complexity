@@ -1,2 +1,2 @@
-a project for DSC 80 at UCSD
+a project for DSC 80 at UCSD!
 Hey guys!
