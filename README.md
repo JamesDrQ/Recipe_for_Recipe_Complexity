@@ -151,11 +151,69 @@ On the held-out test set, the baseline model achieved an **RMSE of 5.56 steps** 
 
 I do not consider this model especially strong because much of the variation in the number of steps remains unexplained, and an error of approximately 5.56 steps can be substantial for shorter recipes. However, it provides a reasonable and interpretable reference point for evaluating whether the final model improves prediction performance.
 
-
 ## Final Model
 
-Final model content goes here.
+For the final model, I created a more flexible regression model to predict `n_steps`. The baseline model used only `minutes` and `n_ingredients` with Linear Regression. The final model retains these features and adds information derived from the recipe’s `name`, `description`, and `tags` to better represent recipe complexity.
+
+I engineered the following additional features:
+
+* **`name_length`**: the number of words in the recipe name
+* **`description_length`**: the number of words in the recipe description
+* **`n_tags`**: the number of tags assigned to the recipe
+* **Top-tag indicators**: binary features showing whether each recipe contains one of the 50 most common tags
+
+Longer names and descriptions may reflect recipes that require more explanation or contain more components. Recipes with more tags may also have more characteristics, preparation requirements, or categories associated with them. Individual tags can provide additional context about a recipe’s expected complexity. For example, tags related to preparation time or difficulty may help distinguish simpler recipes from more involved ones.
+
+Because `3-steps-or-less` directly reveals information about the response variable, I excluded it when engineering features from `tags` to prevent data leakage.
+
+The final model contains **5 quantitative features**: log-transformed `minutes`, `n_ingredients`, `name_length`, `description_length`, and `n_tags`. It also includes up to **50 binary features derived from the nominal `tags` column**. The binary tag indicators were generated using a custom `TopTagsTransformer`.
+
+I used a **Random Forest Regressor** because the relationships between recipe metadata and `n_steps` may be nonlinear and may involve interactions between features. Unlike Linear Regression, a random forest can model these relationships without assuming that each feature has a constant linear effect on the predicted number of steps.
+
+To select the model’s hyperparameters, I used `GridSearchCV` with 3-fold cross-validation and negative RMSE as the scoring metric. I tuned `max_depth`, which controls the complexity of each decision tree, and `min_samples_leaf`, which controls the minimum number of observations required in each leaf. The best-performing hyperparameters were:
+
+* **`max_depth`: 15**
+* **`min_samples_leaf`: 10**
+
+On the held-out test set, the final model achieved an **RMSE of 5.10 steps** and an **R² score of 0.36**. Compared with the baseline model’s RMSE of 5.56 and R² of 0.24, the final model reduced RMSE by approximately **0.46 steps** and explained an additional **12 percentage points** of the variation in `n_steps`.
+
+This improvement suggests that the engineered text-length and tag-based features contain useful information about recipe complexity and that the Random Forest Regressor captures relationships that the baseline Linear Regression model could not. Although the final model still leaves substantial variation unexplained, it provides a meaningful improvement over the baseline model.
+
+For future improvement, a similar feature-engineering approach could be applied to the `ingredients` and `steps` columns. For example, the most common ingredients or cooking actions could be extracted and converted into binary indicator features, allowing the model to better capture the types of ingredients and preparation methods associated with more complex recipes.
 
 ## Fairness Analysis
 
-Fairness analysis content goes here.
+To evaluate whether the Final Model performs similarly across different types of recipes, I compared its prediction errors for the following two groups:
+
+* **Group X — Easy recipes:** recipes containing the `easy` tag
+* **Group Y — Non-easy recipes:** recipes that do not contain the `easy` tag
+
+I chose these groups because non-easy recipes may have more complicated preparation processes and greater variation in their number of steps. As a result, the model may have more difficulty accurately predicting `n_steps` for non-easy recipes.
+
+Because the Final Model is a regression model, I used **RMSE** as the evaluation metric. RMSE measures prediction error in units of recipe steps and penalizes larger errors more heavily. A lower RMSE indicates better predictive performance.
+
+### Hypotheses
+
+**Null Hypothesis:** The model’s RMSE for non-easy recipes is approximately the same as its RMSE for easy recipes. Any observed difference is due to random variation.
+
+**Alternative Hypothesis:** The model’s RMSE for non-easy recipes is greater than its RMSE for easy recipes.
+
+### Test Statistic
+
+The test statistic is:
+
+`RMSE for non-easy recipes − RMSE for easy recipes`
+
+A positive test statistic indicates that the model performs worse on non-easy recipes.
+
+I used a significance level of **0.05**.
+
+### Results
+
+The model achieved an RMSE of **4.27** for easy recipes and **5.97** for non-easy recipes. The observed difference in RMSE was **1.70**.
+
+After performing the permutation test, I obtained a p-value of **0.000999**.
+
+Because the p-value is **below** 0.05, I **reject** the null hypothesis. There is **sufficient** evidence that the model has a higher RMSE for non-easy recipes than for easy recipes.
+
+Therefore, the results suggest that the model **may not perform equally well across the two groups**. However, this test does not prove that the model is completely fair or unfair; it only evaluates whether its RMSE differs between these particular groups.
