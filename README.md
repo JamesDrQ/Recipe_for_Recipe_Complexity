@@ -29,13 +29,15 @@ The primary complexity variables are `minutes`, `n_ingredients`, and `n_steps`, 
 
 ## Data Cleaning and Exploratory Data Analysis
 
+### Data Cleaning
+
 The `recipes` dataset contains one row per recipe, while the `interactions` dataset contains one row per user interaction. Since multiple users may rate the same recipe, recipes can appear many times in `interactions`.
 
 Ratings equal to 0 were replaced with missing values because valid ratings range from 1 to 5, and 0 represents a user who did not provide a rating. Keeping these values would incorrectly lower recipe averages.
 Next, I calculated the average valid rating for each recipe and merged it into the `recipes` dataset using the recipe ID. A left merge was used to preserve all recipes, including those without valid ratings. Recipes with no valid ratings have a missing `avg_rating` rather than a misleading value of 0.
 After cleaning, each row represents one recipe, allowing recipe features such as preparation time, number of ingredients, and number of steps to be compared with its average user rating.
 
-### Head of the Cleaned DataFrame
+#### Head of the Cleaned DataFrame
 
 | name                                 |   minutes |   n_steps |   n_ingredients |   avg_rating |
 |:-------------------------------------|----------:|----------:|----------------:|-------------:|
@@ -45,6 +47,18 @@ After cleaning, each row represents one recipe, allowing recipe features such as
 | millionaire pound cake               |       120 |         7 |               7 |            5 |
 | 2000 meatloaf                        |        90 |        17 |              13 |            5 |
 
+### Univariate Analysis
+
+#### Distribution of Number of Recipe Steps
+
+<iframe
+  src="./assets/n_ingredients_distribution.html"
+  width="100%"
+  height="500"
+  frameborder="0">
+</iframe>
+
+The distribution of the number of ingredients is unimodal and right-skewed. The center of the distribution appears to be around 8 ingredients. This suggests that most recipes use a moderate number of ingredients, and recipes with ingredient counts of more than 25 are relatively uncommon.
 ## Assessment of Missingness
 
 Missingness analysis goes here.
