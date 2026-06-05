@@ -55,7 +55,7 @@ The distribution of the number of ingredients is unimodal and right-skewed. The 
 
 ### Bivariate Analysis
 
-<iframe src="{{ site.baseurl }}/assets/avg_rating_by_n_ingredients.html" width="800%" height="450" frameborder="0"></iframe>
+<iframe src="{{ site.baseurl }}/assets/avg_rating_by_n_ingredients.html" width="100%" height="450" frameborder="0"></iframe>
 
 This box plot shows the distribution of `avg_rating` across different ingredient-count groups. The average ratings are concentrated near 5, and the medians all equal to 5. The boxes are also similar across the four groups, suggesting that recipes with more ingredients do not clearly receive higher or lower ratings than recipes with fewer ingredients. Although there are some low-rating outliers in each group, the overall pattern does not show a strong association between the number of ingredients and average rating.
 
@@ -80,7 +80,7 @@ Useful information could include whether the description field was optional, eac
 
 ### Missingness Dependency
 
-<iframe src="{{ site.baseurl }}/assets/n_steps_by_missingness_of_avg_rating.html" width="800%" height="450" frameborder="0"></iframe>
+<iframe src="{{ site.baseurl }}/assets/n_steps_by_missingness_of_avg_rating.html" width="100%" height="450" frameborder="0"></iframe>
 
 Regarding the central question of whether recipe complexity is associated with a recipe's average user rating, it is important to first determine whether the missingness of `avg_rating` is related to measure of recipe complexity, such as `n_steps`. The distributions of `n_steps` for recipes with missing and non-missing `avg_rating` overlap substantially, but there are some noticeable differences. Recipes with missing `avg_rating` appear to have a slightly more spread-out distribution and a heavier right tail, suggesting that recipes with more steps may be more likely to have missing average ratings.
 
