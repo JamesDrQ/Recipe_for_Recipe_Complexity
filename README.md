@@ -51,12 +51,26 @@ After cleaning, each row represents one recipe, allowing recipe features such as
 
 #### Distribution of Number of Ingredients
 
-<iframe src="{{ site.baseurl }}/assets/n_ingredients_distribution.html" width="100%" height="600" frameborder="0"></iframe>
+<iframe src="{{ site.baseurl }}/assets/n_ingredients_distribution.html" width="100%" height="400" frameborder="0"></iframe>
+
 The distribution of the number of ingredients is unimodal and right-skewed. The center of the distribution appears to be around 8 ingredients. This suggests that most recipes use a moderate number of ingredients, and recipes with ingredient counts of more than 25 are relatively uncommon.
 
 ### Bivariate Analysis
 
-<iframe src="{{ site.baseurl }}/assets/avg_rating_by_n_ingredients.html" width="800%" height="600" frameborder="0"></iframe>
+<iframe src="{{ site.baseurl }}/assets/avg_rating_by_n_ingredients.html" width="800%" height="400" frameborder="0"></iframe>
+
+This box plot shows the distribution of `avg_rating` across different ingredient-count groups. The average ratings are concentrated near 5, and the medians all equal to 5. The boxes are also similar across the four groups, suggesting that recipes with more ingredients do not clearly receive higher or lower ratings than recipes with fewer ingredients. Although there are some low-rating outliers in each group, the overall pattern does not show a strong association between the number of ingredients and average rating.
+
+### Interesting Aggregates
+
+| ingredient_group   |     1-5 |    6-10 |   11-20 |     21+ |
+|:-------------------|--------:|--------:|--------:|--------:|
+| 1-5                | 4.66479 | 4.63466 | 4.62094 | 4.6594  |
+| 6-10               | 4.62164 | 4.61032 | 4.61711 | 4.6623  |
+| 11-15              | 4.61855 | 4.61532 | 4.62361 | 4.65194 |
+| 16+                | 4.70382 | 4.63493 | 4.65392 | 4.62091 |
+
+This pivot table shows the mean `avg_rating` for recipes grouped by both number of ingredients and number of steps. The average ratings are very similar across most combinations, mostly ranging from about 4.61 to 4.70. This suggests that even when considering both forms of recipe complexity together, recipes with more ingredients or more steps do not clearly receive higher or lower ratings. Overall, the table supports the earlier box plots: recipe complexity does not appear to have a strong association with average rating.
 
 ## Assessment of Missingness
 
