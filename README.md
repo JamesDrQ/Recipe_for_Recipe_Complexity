@@ -72,6 +72,12 @@ This pivot table shows the mean `avg_rating` for recipes grouped by both number 
 
 ## Assessment of Missingness
 
+### NMAR Analysis
+
+I believe that the missingness of `description` may be **NMAR**. Whether a recipe contributor provides a description may depend on the unobserved description itself. For example, contributors may leave the description blank when they have little additional information to provide or when they believe the recipe is simple and does not require an explanation. Therefore, the probability that `description` is missing may depend on its missing content or length.
+
+Useful information could include whether the description field was optional, each contributor's past tendency to provide descriptions, and whether contributors were prompted to complete the field. By using these additional data we might explain the missingness and potentially make it MAR.
+
 Missingness analysis goes here.
 
 ## Hypothesis Testing
