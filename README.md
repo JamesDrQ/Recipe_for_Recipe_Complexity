@@ -52,8 +52,11 @@ After cleaning, each row represents one recipe, allowing recipe features such as
 #### Distribution of Number of Ingredients
 
 <iframe src="{{ site.baseurl }}/assets/n_ingredients_distribution.html" width="100%" height="600" frameborder="0"></iframe>
-
 The distribution of the number of ingredients is unimodal and right-skewed. The center of the distribution appears to be around 8 ingredients. This suggests that most recipes use a moderate number of ingredients, and recipes with ingredient counts of more than 25 are relatively uncommon.
+
+### Bivariate Analysis
+
+<iframe src="{{ site.baseurl }}/assets/avg_rating_by_n_ingredients.html" width="800%" height="600" frameborder="0"></iframe>
 
 ## Assessment of Missingness
 
