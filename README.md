@@ -80,11 +80,47 @@ Useful information could include whether the description field was optional, eac
 
 ### Missingness Dependency
 
+<iframe src="{{ site.baseurl }}/assets/n_steps_by_missingness_of_avg_rating.html" width="800%" height="450" frameborder="0"></iframe>
+
+Regarding the central question of whether recipe complexity is associated with a recipe's average user rating, it is important to first determine whether the missingness of `avg_rating` is related to measure of recipe complexity, such as `n_steps`. The distributions of `n_steps` for recipes with missing and non-missing `avg_rating` overlap substantially, but there are some noticeable differences. Recipes with missing `avg_rating` appear to have a slightly more spread-out distribution and a heavier right tail, suggesting that recipes with more steps may be more likely to have missing average ratings.
+
+The permutation test produced a p-value below 0.001, let alone the significance level of 0.05. Therefore, we reject the null hypothesis that the missingness of `avg_rating` is unrelated to `n_steps`. This provides evidence that the missingness of `avg_rating` depends on the number of recipe steps.
+
+
 
 
 ## Hypothesis Testing
 
-Hypothesis testing content goes here.
+To investigate the central question of whether recipe complexity is associated with average user ratings, I examined whether recipes with more ingredients tend to receive different average ratings than recipes with fewer ingredients.
+
+Recipes were divided into two groups using the median number of ingredients:
+
+* **Simple recipes:** recipes with `n_ingredients` less than or equal to the median
+* **Complex recipes:** recipes with `n_ingredients` greater than the median
+
+Using the median creates two reasonably sized groups and avoids choosing an arbitrary cutoff for recipe complexity.
+
+### Hypotheses
+
+**Null Hypothesis:** Simple and complex recipes have the same mean `avg_rating`. Any observed difference between their mean ratings is due to random variation.
+
+**Alternative Hypothesis:** Simple and complex recipes have different mean `avg_rating`.
+
+### Test Statistic and Significance Level
+
+The test statistic is the absolute difference in mean `avg_rating` between complex and simple recipes:
+
+`|mean rating of complex recipes − mean rating of simple recipes|`
+
+The absolute difference is appropriate because the alternative hypothesis is two-sided: I am testing whether the groups have different ratings, without assuming in advance which group has the higher rating.
+
+I used a significance level of **0.05**, a commonly used threshold for determining whether the observed evidence is unlikely under the null hypothesis.
+
+### Results
+
+The observed difference in mean average rating was **0.004**. After randomly shuffling the complexity-group labels **1000** times, the permutation test produced a p-value of **0.374**.
+
+Because the p-value is **above** the significance level of 0.05, I **fail to reject** the null hypothesis. This suggests that I do not have enough evidence to conclude that simple and complex recipes have different average ratings.
 
 ## Framing a Prediction Problem
 
